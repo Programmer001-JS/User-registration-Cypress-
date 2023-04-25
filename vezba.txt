@@ -1,0 +1,139 @@
+/// <reference types="cypress"/>
+
+
+describe('My test', () => {
+   it('testing etherscan page', () => {
+
+      cy.visit('https://etherscan.io/register')
+
+      cy.url().should('include', 'register') //check correct url address
+
+      cy.get('#btnCookie').click() //accpet cookies
+
+
+      //Username
+      cy.get('input[name="ctl00$ContentPlaceHolder1$txtUserName"]')
+         .focus()
+         .type('daca')
+         .should('have.value', 'daca')
+      cy.get('.invalid-feedback')
+         .should('have.text', 'Please enter at least 5 characters.')
+      cy.get('input[name="ctl00$ContentPlaceHolder1$txtUserName"]')
+         .clear()
+         .should('have.value', '')
+         .type('Daca1')
+         .should('have.value', 'Daca1')
+      cy.get('.invalid-feedback')
+         .should('not.be.visible')
+
+      //Email
+      cy.get('input[name="ctl00$ContentPlaceHolder1$txtEmail"]')
+         .focus()
+         .type('dacagmail.com')
+         .should('have.value', 'dacagmail.com')
+      cy.get('.invalid-feedback')
+         .should('have.text', 'Please enter a valid email address.')
+      cy.get('input[name="ctl00$ContentPlaceHolder1$txtEmail"]')
+         .clear()
+         .should('have.value', '')
+         .type('daca@gmail.com')
+         .should('have.value', 'daca@gmail.com')
+      cy.get('.invalid-feedback')
+         .should('not.be.visible')
+
+
+      //Confirm Email
+      cy.get('input[name="ctl00$ContentPlaceHolder1$txtConfirmEmail"]')
+         .focus()
+         .type('ivana.com')
+         .should('have.value', 'ivana.com')
+      cy.get('.invalid-feedback')
+         .should('have.text', 'Please re-enter your email address.')
+      cy.get('input[name="ctl00$ContentPlaceHolder1$txtConfirmEmail"]')
+         .clear()
+         .should('have.value', '')
+         .type('ivana@gmail.com')
+         .should('have.value', 'ivana@gmail.com')
+      cy.get('.invalid-feedback')
+         .should('have.text', 'Email address does not match.')
+      cy.get('input[name="ctl00$ContentPlaceHolder1$txtConfirmEmail"]')
+         .clear()
+         .should('have.value', '')
+         .type('daca@gmail.com')
+         .should('have.value', 'daca@gmail.com')
+      cy.get('.invalid-feedback')
+         .should('not.be.visible')
+
+
+
+      //Password
+      cy.get('input[name="ctl00$ContentPlaceHolder1$txtPassword"]')
+         .focus()
+         .type('daca')
+         .should('have.value', 'daca')
+      cy.get('.invalid-feedback')
+         .should('have.text', 'Your password must be at least 8 characters long.')
+      cy.get('input[name="ctl00$ContentPlaceHolder1$txtPassword"]')
+         .clear()
+         .should('have.value', '')
+         .type('danilo123')
+         .should('have.value', 'danilo123')
+      cy.get('.invalid-feedback')
+         .should('not.be.visible')
+
+      //confirm password
+      cy.get('input[name="ctl00$ContentPlaceHolder1$txtPassword2"]')
+         .focus()
+         .type('ivana123')
+         .should('have.value', 'ivana123')
+      cy.get('.invalid-feedback')
+         .should('have.text', 'Password does not match, please check again.')
+      cy.get('input[name="ctl00$ContentPlaceHolder1$txtPassword2"]')
+         .clear()
+         .should('have.value', '')
+         .type('danilo123')
+         .should('have.value', 'danilo123')
+      cy.get('.invalid-feedback')
+         .should('not.be.visible')
+      cy.get('.progress-label')
+         .should('have.text', 'Medium!')
+
+      //checkbox
+      //ctl00$ContentPlaceHolder1$MyCheckBox
+      //Please accept our Terms and Conditions.
+          //pokusacemo po klasi da nadjemo
+
+      //cy.get('.form-check-input [type="checkbox"]')
+      //.focus()
+      //.check().should('be.checked')
+      
+
+  //  cy.get('.progress-label')
+      //  .should('have.class', 'fs-sm')
+      //  .and(($el) => {
+      //     const text = $el.text()
+      //     expect(text.trim()).to.not.be.empty
+      //  })
+      //
+      // cy.get('.progress-label')
+      //    .invoke('css', 'color')
+      //    .should('equal', 'rgb(165, 42, 42)')
+      //    .get('.progress-label')
+      //    .should('contain', 'Medium!');
+
+
+
+
+
+   })
+})
+
+----------------------------------------------------
+ jedan od nacina za pronalazneje elementa
+
+
+  cy.get('.form-control.form-control-lg.py-3')
+         .first()
+         .focus()
+         .type('daca')
+         .should('have.value', 'daca');

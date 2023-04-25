@@ -1,0 +1,66 @@
+
+describe('my firs test', () => {
+  it('testing cypress page', () => {
+
+    cy.visit('https://example.cypress.io')
+
+    cy.contains('type').click()
+
+    cy.url().should('include', '/commands/actions')
+
+    cy.get('.action-email')
+      .type('fake@gmail.com')
+      .should('have.value', 'fake@gmail.com')
+
+    cy.get('.action-disabled')
+      .type('disabled', { force: true })
+      .should('have.value', 'disabled')
+
+    cy.get('.action-focus')
+      .focus()
+      .should('have.class', 'focus')
+      .prev().should('have.attr', 'style', 'color: orange;')
+
+    cy.get('.action-blur')
+      .type('about to blur')
+      .blur()
+      .should('have.class', 'error')
+      .prev().should('have.attr', 'style', 'color: red;')
+
+    cy.get('.action-form')
+      .find('[type="text"]')
+      .type('daca')
+    cy.get('.action-form')
+      .submit()
+      .next()
+      .should('contain', 'Your form has been submitted!')
+
+    cy.get('.action-btn').click()
+    cy.get('#action-canvas').click('left')
+
+    cy.get('.action-labels>.label').click({ multiple: true })
+    cy.get('.action-opacity>.btn').click({ force: true })
+    cy.get('.action-div').dblclick().should('not.be.visible')
+    cy.get('.action-input-hidden').should('be.visible')
+
+    cy.get('.action-multiple-checkboxes [type="checkbox"]')
+      .not('[disabled]')
+      //ovo je value
+      .check(['checkbox1', 'checkbox2']).should('be.checked'),
+
+      cy.get('.action-checkboxes [type="checkbox"]')
+        .not('[disabled]')
+        .uncheck().should('not.be.checked')
+
+    cy.get('.action-select')
+      .should('have.value', '--Select a fruit--')
+    cy.get('.action-select').select('apples')
+    cy.get('.action-select').should('have.value', 'fr-apples')
+
+    cy.get('.action-select-multiple')
+      .select(['apples', 'oranges', 'bananas'])
+      // when getting multiple values, invoke "val" method first
+      .invoke('val')
+      .should('deep.equal', ['fr-apples', 'fr-oranges', 'fr-bananas'])
+  })
+})
